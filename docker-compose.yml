@@ -1,0 +1,13 @@
+rediscommander:
+  build: .
+  links:
+    - redis
+  ports:
+    - "8081:8081"
+  command: --port 8081 --nosave --redis-host redis --redis-port 6379 --static-root-url /redisxx
+
+redis:
+  image: redis
+  ports:
+    - "6379:6379"
+  command: redis-server --appendonly yes

@@ -55,9 +55,14 @@ var args = optimist
     default: 8081
   })
   .options('nosave', {
-     alias: 'ns',
+    alias: 'ns',
     boolean: true,
     describe: 'Do not save new connections to config.'
+  })
+  .options('static-root-url', {
+    alias: 's-root',
+    string: true,
+    describe: 'Static root URL'
   })
   .argv;
 
@@ -173,5 +178,5 @@ function connectToDB (redisConnection, db) {
 function startWebApp () {
   httpServerOptions = {webPort: args.port, webAddress: args.address, username: args["http-auth-username"], password: args["http-auth-password"]};
   console.log("No Save: " + args["nosave"]);
-  app(httpServerOptions, redisConnections, args["nosave"]);
+  app(httpServerOptions, redisConnections, args["nosave"], args["static-root-url"]);
 }
